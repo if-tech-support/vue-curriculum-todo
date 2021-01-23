@@ -10,7 +10,7 @@
 1. CRUD機能の実装(Read → Create → Update → Delete)の順で進めてください。
 1. LocalStorageでデータを保存
 1. 余裕のある人向け 要素/機能の追加
-##### > ※参考URLを見ながらやって頂いてもOKです。
+> ##### ※参考URLを見ながらやって頂いてもOKです。
 ### CRUD機能を実装しましょう。
 - 読み込み
 →　参考:[リストレンダリング](https://jp.vuejs.org/v2/guide/list.html)
