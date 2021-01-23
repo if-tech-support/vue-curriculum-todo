@@ -11,7 +11,7 @@
 1. LocalStorageでデータを保存
 1. 余裕のある人向け 要素/機能の追加
 > ##### ※参考URLを見ながらやって頂いてもOKです。
-### CRUD機能を実装しましょう。
+### 1. CRUD機能を実装しましょう。
 - 読み込み
 > 参考： [リストレンダリング](https://jp.vuejs.org/v2/guide/list.html)
 - 新規作成
@@ -19,12 +19,12 @@
 - 編集
 > 参考： [追加/削除/編集](https://jp.vuejs.org/v2/guide/list.html#%E5%A4%89%E6%9B%B4%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89)
 
-### リロードしても消えない様にしましょう。
+### 2. リロードしても消えない様にしましょう。
 - localStorageに保存する
 - localStorageから取得する
 > 参考： [JavaScriptで連想配列をLocalStorageに保存する時の方法](http://itemy.net/?p=1427)
 
-### 余裕のある人は要素や機能を増やしましょう。
+### 3. 余裕のある人は要素や機能を増やしましょう。
 #### ▼要素
 - 期限(deadLine)
 > 参考： [vuejs-datepicker](https://www.kabanoki.net/2560/)
