@@ -34,5 +34,8 @@
 #### ▼機能
 - ソート（ID、期限、ステータス）で並び替え
 - フィルター(ID、期限、ステータス)で絞り込み表示
+  - 参考：[ソート、フィルター](https://jp.vuejs.org/v2/guide/list.html#%E9%85%8D%E5%88%97%E3%81%AE%E7%BD%AE%E3%81%8D%E6%8F%9B%E3%81%88)
 - コメント機能
 - Todoリストのコンポーネント化
+  - 参考：[コンポーネント](https://jp.vuejs.org/v2/guide/components.html)
+  - 上記サイトの『コンポーネントと v-for』項目を参照
