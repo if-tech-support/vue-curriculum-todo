@@ -13,21 +13,21 @@
 > ##### ※参考URLを見ながらやって頂いてもOKです。
 ### CRUD機能を実装しましょう。
 - 読み込み
-→　参考:[リストレンダリング](https://jp.vuejs.org/v2/guide/list.html)
+> →　参考:[リストレンダリング](https://jp.vuejs.org/v2/guide/list.html)
 - 新規作成
 - 削除
 - 編集
-→　参考:[追加/削除/編集](https://jp.vuejs.org/v2/guide/list.html#%E5%A4%89%E6%9B%B4%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89)
+> →　参考:[追加/削除/編集](https://jp.vuejs.org/v2/guide/list.html#%E5%A4%89%E6%9B%B4%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89)
 
 ### リロードしても消えない様にしましょう。
 - localStorageに保存する
 - localStorageから取得する
-→　参考：[JavaScriptで連想配列をLocalStorageに保存する時の方法](http://itemy.net/?p=1427)
+> →　参考：[JavaScriptで連想配列をLocalStorageに保存する時の方法](http://itemy.net/?p=1427)
 
 ### 余裕のある人は要素や機能を増やしましょう。
 #### ▼要素
 - 期限(deadLine)
-→　参考：[vuejs-datepicker](https://www.kabanoki.net/2560/)
+> →　参考：[vuejs-datepicker](https://www.kabanoki.net/2560/)
 - ステータス(todo, inProgress, done)など
 - 作成日、更新日
 - 内容(body)
@@ -35,8 +35,8 @@
 #### ▼機能
 - ソート（ID、期限、ステータス）で並び替え
 - フィルター(ID、期限、ステータス)で絞り込み表示
-→　参考：[ソート、フィルター](https://jp.vuejs.org/v2/guide/list.html#%E9%85%8D%E5%88%97%E3%81%AE%E7%BD%AE%E3%81%8D%E6%8F%9B%E3%81%88)
+> →　参考：[ソート、フィルター](https://jp.vuejs.org/v2/guide/list.html#%E9%85%8D%E5%88%97%E3%81%AE%E7%BD%AE%E3%81%8D%E6%8F%9B%E3%81%88)
 - コメント機能
 - Todoリストのコンポーネント化
-→　参考：[コンポーネント](https://jp.vuejs.org/v2/guide/components.html)
-→　上記サイトの『コンポーネントと v-for』項目を参照
+> →　参考：[コンポーネント](https://jp.vuejs.org/v2/guide/components.html)
+> →　上記サイトの『コンポーネントと v-for』項目を参照
