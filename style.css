@@ -1,0 +1,32 @@
+main {
+  margin: 100px auto 0;
+  width: 500px;
+  text-align: center;
+}
+
+.app-title {
+  margin-bottom: 100px;
+  border-bottom: 1px solid #000;
+}
+
+.todo-list-container {
+  padding: 30px 20px;
+  border: 2px solid #000;
+}
+
+.todo-task-container {
+  display: flex;
+
+  margin-bottom: 20px;
+  padding: 30px 20px;
+  border: 1px solid #000;
+}
+
+.todo-task-id {
+  margin-right: 30px;
+
+}
+
+.todo-task-title {
+
+}
