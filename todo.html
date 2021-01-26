@@ -36,17 +36,18 @@
         <div class="todo-task-title" >
           Title： {{ todo.title }}
         </div>
-        <button type="button" @click="removeTodo(i)" >削除</button>
-        <button type="button" @click="getTodo(todo, i)" >編集</button>
+        <button type="button" @click="removeTodo(i)" v-show="!onUpdate">削除</button>
+        <button type="button" @click="getTodo(todo, i)" v-show="!onUpdate">編集</button>
       </div>
 
       <!-- 編集フォーム -->
       <div class="todo-update-form" v-show="onUpdate">
+        ID : {{ update.id }}
         <input v-model="update.title" placeholder="Todoのタイトルを記入">
         <button type="button" @click="updateTodo">保存</button>
         <button type="button" @click="onUpdate = !onUpdate">戻る</button>
       </div>
-      
+
     </div>
   </main>
 
