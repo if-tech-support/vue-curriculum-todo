@@ -14,6 +14,9 @@ const app = new Vue({
         title: this.todo.title
       })
       this.todo.id++
+    },
+    removeTodo(i) {
+      this.todos.splice(i, 1)
     }
   },
 

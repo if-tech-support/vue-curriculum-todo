@@ -28,8 +28,6 @@ main {
   border: 1px solid #000;
 }
 
-.todo-task-id {
+.todo-task-id, .todo-task-title {
   margin-right: 30px;
-
 }
-
