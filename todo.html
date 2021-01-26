@@ -7,10 +7,20 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- TODO : Delete -->
+  <!-- TODO : Update -->
 
   <main id="app" >
     <div class="app-title">
       <h1>My Todo List</h1>
+    </div>
+
+    <div class="add-todo-form">
+      <div class="form-title">
+        <h2>Todoを追加する</h2>
+      </div>
+      <input v-model="todo.title" placeholder="Todoのタイトルを記入">
+      <button type="button" @click="addTodo">追加</button>
     </div>
 
     <!-- todo-list : タスク全体を内包するコンテナ -->

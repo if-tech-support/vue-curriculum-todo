@@ -1,20 +1,21 @@
 const app = new Vue({
   el: '#app',
   data: {
-    todos: [
-      {
-        id: 1,
-        title: 'task1'
-      },
-      {
-        id: 2,
-        title: 'task2'
-      },
-      {
-        id: 3,
-        title: 'task3'
-      },
-    ],
-  }
+    todos: [],
+    todo: {
+      id: 0,
+      title: null
+    }
+  },
+  methods: {
+    addTodo() {
+      this.todos.push({
+        id: this.todo.id,
+        title: this.todo.title
+      })
+      this.todo.id++
+    }
+  },
+
 })
 
