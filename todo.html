@@ -8,7 +8,7 @@
 </head>
 <body>
 
-  <main>
+  <main id="app" >
     <div class="app-title">
       <h1>My Todo List</h1>
     </div>
@@ -16,28 +16,16 @@
     <!-- todo-list : タスク全体を内包するコンテナ -->
     <div class="todo-list-container">
       <!-- todo-task : タスク要素を全て内包するコンテナ -->
-      <div class="todo-task-container">
+      <div
+      v-for="(todo, i) in todos"
+      :key="i"
+      class="todo-task-container"
+      >
         <div class="todo-task-id">
-          ID： 1
+          ID：{{ todo.id }}
         </div>
         <div class="todo-task-title">
-          Title：  task1
-        </div>
-      </div>
-      <div class="todo-task-container">
-        <div class="todo-task-id">
-          ID： 2
-        </div>
-        <div class="todo-task-title">
-          Title：  task1
-        </div>
-      </div>
-      <div class="todo-task-container">
-        <div class="todo-task-id">
-          ID： 3
-        </div>
-        <div class="todo-task-title">
-          Title：  task1
+          Title： {{ todo.title }}
         </div>
       </div>
     </div>
@@ -46,6 +34,8 @@
 
   <!-- 開発用 Vue CDN -->
   <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <!-- app.jsの登録 -->
+  <script src="app.js"></script>
 </body>
 
 </html>
