@@ -4,11 +4,11 @@ const app = new Vue({
     todos: [],
     todo: {
       id: 0,
-      title: null
+      title: ''
     },
     update: {
       id: null,
-      title: null
+      title: ''
     },
     onUpdate: false
 
