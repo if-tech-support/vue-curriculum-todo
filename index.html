@@ -7,8 +7,6 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- TODO : Delete -->
-  <!-- TODO : Update -->
 
   <main id="app" >
     <div class="app-title">
@@ -25,26 +23,27 @@
 
     <!-- todo-list : タスク全体を内包するコンテナ -->
     <div class="todo-list-container">
-      <!-- todo-task : タスク要素を全て内包するコンテナ -->
+      <!-- todo-task : 個別のタスク要素を全て内包するコンテナ -->
       <div
-      class="todo-task-container"
-      v-for="(todo, i) in todos"
-      :key="i">
-        <div class="todo-task-id">
+        v-for="(todo, index) in todos"
+        :key="index"
+        class="todo-task-container"
+        >
+        <div  class="todo-task-id">
           ID：{{ todo.id }}
         </div>
-        <div class="todo-task-title" >
+        <div class="todo-task-title">
           Title： {{ todo.title }}
         </div>
-        <button type="button" @click="removeTodo(i)" v-show="!onUpdate">削除</button>
-        <button type="button" @click="getTodo(todo, i)" v-show="!onUpdate">編集</button>
+        <button type="button" @click="deleteTodo(index)" v-show="!onUpdate">削除</button>
+        <button type="button" @click="showUpdateForm(todo, index)" v-show="!onUpdate">編集</button>
       </div>
 
       <!-- 編集フォーム -->
-      <div class="todo-update-form" v-show="onUpdate">
-        ID : {{ update.id }}
-        <input v-model="update.title" placeholder="Todoのタイトルを記入">
-        <button type="button" @click="updateTodo">保存</button>
+      <div v-show="onUpdate">
+        ID : {{ updateTodo.id }}
+        <input v-model="updateTodo.title" placeholder="Todoのタイトルを記入">
+        <button type="button" @click="saveUpdateTodo">保存</button>
         <button type="button" @click="onUpdate = !onUpdate">戻る</button>
       </div>
 
@@ -54,8 +53,47 @@
 
   <!-- 開発用 Vue CDN -->
   <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-  <!-- app.jsの登録 -->
-  <script src="app.js"></script>
-</body>
+  <!-- Vue.js の処理  -->
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        todos: [],
+        todo: {
+          id: 0,
+          title: ''
+        },
+        updateTodo: {
+          id: null,
+          title: ''
+        },
+        onUpdate: false
+      },
+      methods: {
+        addTodo() {
+          this.todos.push({
+            id: this.todo.id,
+            title: this.todo.title
+          })
+          this.todo.id++
+          this.todo.title = ''
+        },
+        deleteTodo(index) {
+          this.todos.splice(index, 1)
+        },
+        showUpdateForm(todo, index) {
+          this.onUpdate = !this.onUpdate
+          this.updateTodo.title = todo.title
+          this.updateTodo.id = index
+        },
+        saveUpdateTodo() {
+          this.onUpdate = !this.onUpdate
+          let id = this.updateTodo.id
+          this.todos[id].title = this.updateTodo.title
+        }
+      },
+    })
+  </script>
 
+</body>
 </html>
