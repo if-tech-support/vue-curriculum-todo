@@ -21,32 +21,31 @@
       <button type="button" @click="addTodo">追加</button>
     </div>
 
-    <!-- todo-list : タスク全体を内包するコンテナ -->
-    <div class="todo-list-container">
-      <!-- todo-task : 個別のタスク要素を全て内包するコンテナ -->
+    <!-- wrapper : todoの一覧を内包するラッパー -->
+    <div class="wrapper">
+      <!-- container : todoの詳細を内包するコンテナ -->
       <div
-        v-for="(todo, index) in todos"
-        :key="index"
-        class="todo-task-container"
+        v-for="todo in todos"
+        :key="todo.id"
+        class="container"
         >
-        <div  class="todo-task-id">
+        <div class="todo-id">
           ID：{{ todo.id }}
         </div>
-        <div class="todo-task-title">
+        <div class="todo-title">
           Title： {{ todo.title }}
         </div>
-        <button type="button" @click="deleteTodo(index)" v-show="!onUpdate">削除</button>
-        <button type="button" @click="showUpdateForm(todo, index)" v-show="!onUpdate">編集</button>
+        <button type="button" @click="deleteTodo(todo.id)" v-show="!isShowUpdateForm">削除</button>
+        <button type="button" @click="showUpdateForm(todo)" v-show="!isShowUpdateForm">編集</button>
       </div>
+    </div>
 
-      <!-- 編集フォーム -->
-      <div v-show="onUpdate">
-        ID : {{ updateTodo.id }}
-        <input v-model="updateTodo.title" placeholder="Todoのタイトルを記入">
-        <button type="button" @click="saveUpdateTodo">保存</button>
-        <button type="button" @click="onUpdate = !onUpdate">戻る</button>
-      </div>
-
+    <!-- 編集フォーム -->
+    <div v-show="isShowUpdateForm" class="update-todo-form">
+      ID : {{ inputUpdateTodo.id }}
+      <input v-model="inputUpdateTodo.title" placeholder="Todoのタイトルを記入">
+      <button type="button" @click="updateTodo">保存</button>
+      <button type="button" @click="isShowUpdateForm = !isShowUpdateForm">戻る</button>
     </div>
   </main>
 
@@ -63,11 +62,11 @@
           id: 0,
           title: ''
         },
-        updateTodo: {
+        inputUpdateTodo: {
           id: null,
           title: ''
         },
-        onUpdate: false
+        isShowUpdateForm: false
       },
       methods: {
         addTodo() {
@@ -78,18 +77,24 @@
           this.todo.id++
           this.todo.title = ''
         },
-        deleteTodo(index) {
-          this.todos.splice(index, 1)
+        deleteTodo(targetTodoId) {
+          this.todos = this.todos.filter(todo => { return todo.id !== targetTodoId })
         },
-        showUpdateForm(todo, index) {
-          this.onUpdate = !this.onUpdate
-          this.updateTodo.title = todo.title
-          this.updateTodo.id = index
+        showUpdateForm(targetTodo) {
+          this.isShowUpdateForm = !this.isShowUpdateForm
+          this.inputUpdateTodo.title = targetTodo.title
+          this.inputUpdateTodo.id = targetTodo.id
         },
-        saveUpdateTodo() {
-          this.onUpdate = !this.onUpdate
-          let id = this.updateTodo.id
-          this.todos[id].title = this.updateTodo.title
+        updateTodo() {
+          this.isShowUpdateForm = !this.isShowUpdateForm
+          let updateTodo = this.todos.filter(todo => {
+            return todo.id === this.inputUpdateTodo.id
+          })
+          this.deleteTodo(this.inputUpdateTodo.id)
+          updateTodo.forEach(todo => {
+            todo.title = this.inputUpdateTodo.title
+            this.todos.push(todo)
+          });
         }
       },
     })
