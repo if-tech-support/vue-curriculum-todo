@@ -87,8 +87,11 @@
         },
         updateTodo() {
           this.isShowUpdateForm = !this.isShowUpdateForm
-          const index = this.inputUpdateTodo.id
-          this.todos[index].title = this.inputUpdateTodo.title
+          this.todos.map(todo => {
+            if (todo.id === this.inputUpdateTodo.id) {
+              todo.title = this.inputUpdateTodo.title
+            }
+          })
         }
       },
     })
