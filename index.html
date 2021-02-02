@@ -78,7 +78,7 @@
           this.todo.title = ''
         },
         deleteTodo(targetTodoId) {
-          this.todos = this.todos.filter(todo => { return todo.id !== targetTodoId })
+          this.todos = this.todos.filter(todo =>  todo.id !== targetTodoId )
         },
         showUpdateForm(targetTodo) {
           this.isShowUpdateForm = !this.isShowUpdateForm
@@ -87,14 +87,8 @@
         },
         updateTodo() {
           this.isShowUpdateForm = !this.isShowUpdateForm
-          let updateTodo = this.todos.filter(todo => {
-            return todo.id === this.inputUpdateTodo.id
-          })
-          this.deleteTodo(this.inputUpdateTodo.id)
-          updateTodo.forEach(todo => {
-            todo.title = this.inputUpdateTodo.title
-            this.todos.push(todo)
-          });
+          const index = this.inputUpdateTodo.id
+          this.todos[index].title = this.inputUpdateTodo.title
         }
       },
     })
