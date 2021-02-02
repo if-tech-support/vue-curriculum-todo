@@ -1,101 +1,126 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Let's Create Todo App</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-  <main id="app" >
-    <div class="app-title">
-      <h1>My Todo List</h1>
-    </div>
-
-    <div class="add-todo-form">
-      <div class="form-title">
-        <h2>Todoを追加する</h2>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Let's Create Todo App</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main id="app">
+      <div class="app-title">
+        <h1>My Todo List</h1>
       </div>
-      <input v-model="todo.title" placeholder="Todoのタイトルを記入">
-      <button type="button" @click="addTodo">追加</button>
-    </div>
 
-    <!-- wrapper : todoの一覧を内包するラッパー -->
-    <div class="wrapper">
-      <!-- container : todoの詳細を内包するコンテナ -->
-      <div
-        v-for="todo in todos"
-        :key="todo.id"
-        class="container"
-        >
-        <div class="todo-id">
-          ID：{{ todo.id }}
+      <div class="add-todo-form">
+        <div class="form-title">
+          <h2>Todoを追加する</h2>
         </div>
-        <div class="todo-title">
-          Title： {{ todo.title }}
-        </div>
-        <button type="button" @click="deleteTodo(todo.id)" v-show="!isShowUpdateForm">削除</button>
-        <button type="button" @click="showUpdateForm(todo)" v-show="!isShowUpdateForm">編集</button>
+        <input v-model="todo.title" placeholder="Todoのタイトルを記入" />
+        <button type="button" @click="addTodo">追加</button>
       </div>
-    </div>
 
-    <!-- 編集フォーム -->
-    <div v-show="isShowUpdateForm" class="update-todo-form">
-      ID : {{ inputUpdateTodo.id }}
-      <input v-model="inputUpdateTodo.title" placeholder="Todoのタイトルを記入">
-      <button type="button" @click="updateTodo">保存</button>
-      <button type="button" @click="isShowUpdateForm = !isShowUpdateForm">戻る</button>
-    </div>
-  </main>
+      <!-- wrapper : todoの一覧を内包するラッパー -->
+      <div class="wrapper">
+        <!-- container : todoの詳細を内包するコンテナ -->
+        <div v-for="todo in todos" :key="todo.id" class="container">
+          <div class="todo-id">
+            ID：{{ todo.id }}
+          </div>
+          <div class="todo-title">
+            Title： {{ todo.title }}
+          </div>
+          <button
+            type="button"
+            @click="deleteTodo(todo.id)"
+            v-show="!isShowUpdateForm"
+          >
+            削除
+          </button>
+          <button
+            type="button"
+            @click="showUpdateForm(todo)"
+            v-show="!isShowUpdateForm"
+          >
+            編集
+          </button>
+        </div>
+      </div>
 
+      <!-- 編集フォーム -->
+      <div v-show="isShowUpdateForm" class="update-todo-form">
+        ID : {{ inputUpdateTodo.id }}
+        <input
+          v-model="inputUpdateTodo.title"
+          placeholder="Todoのタイトルを記入"
+        />
+        <button type="button" @click="updateTodo">保存</button>
+        <button type="button" @click="isShowUpdateForm = !isShowUpdateForm">
+          戻る
+        </button>
+      </div>
+    </main>
 
-  <!-- 開発用 Vue CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-  <!-- Vue.js の処理  -->
-  <script>
-    const app = new Vue({
-      el: '#app',
-      data: {
-        todos: [],
-        todo: {
-          id: 0,
-          title: ''
+    <!-- 開発用 Vue CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <!-- Vue.js の処理  -->
+    <script>
+      const app = new Vue({
+        el: '#app',
+        data: {
+          todos: [],
+          todo: {
+            id: 0,
+            title: '',
+          },
+          inputUpdateTodo: {
+            id: null,
+            title: '',
+          },
+          isShowUpdateForm: false,
         },
-        inputUpdateTodo: {
-          id: null,
-          title: ''
-        },
-        isShowUpdateForm: false
-      },
-      methods: {
-        addTodo() {
-          this.todos.push({
-            id: this.todo.id,
-            title: this.todo.title
-          })
-          this.todo.id++
-          this.todo.title = ''
-        },
-        deleteTodo(targetTodoId) {
-          this.todos = this.todos.filter(todo =>  todo.id !== targetTodoId )
-        },
-        showUpdateForm(targetTodo) {
-          this.isShowUpdateForm = !this.isShowUpdateForm
-          this.inputUpdateTodo.title = targetTodo.title
-          this.inputUpdateTodo.id = targetTodo.id
-        },
-        updateTodo() {
-          this.isShowUpdateForm = !this.isShowUpdateForm
-          this.todos.map(todo => {
-            if (todo.id === this.inputUpdateTodo.id) {
-              todo.title = this.inputUpdateTodo.title
+        mounted() {
+          if (localStorage.getItem('todos')) {
+            try {
+              this.todos = JSON.parse(localStorage.getItem('todos'));
+            } catch (e) {
+              localStorage.removeItem('todos');
             }
-          })
-        }
-      },
-    })
-  </script>
-
-</body>
+          }
+        },
+        methods: {
+          addTodo() {
+            this.todos.push({
+              id: this.todo.id,
+              title: this.todo.title,
+            });
+            this.todo.id++;
+            this.todo.title = '';
+            this.saveTodo();
+          },
+          saveTodo() {
+            localStorage.setItem('todos', JSON.stringify(this.todos));
+          },
+          deleteTodo(targetTodoId) {
+            this.todos = this.todos.filter((todo) => todo.id !== targetTodoId);
+            this.saveTodo();
+          },
+          showUpdateForm(targetTodo) {
+            this.isShowUpdateForm = !this.isShowUpdateForm;
+            this.inputUpdateTodo.title = targetTodo.title;
+            this.inputUpdateTodo.id = targetTodo.id;
+          },
+          updateTodo() {
+            this.isShowUpdateForm = !this.isShowUpdateForm;
+            this.todos.map((todo) => {
+              if (todo.id === this.inputUpdateTodo.id) {
+                todo.title = this.inputUpdateTodo.title;
+              }
+            });
+            this.saveTodo();
+          },
+        },
+      });
+    </script>
+  </body>
 </html>
