@@ -86,12 +86,13 @@
           this.inputUpdateTodo.id = targetTodo.id
         },
         updateTodo() {
-          this.isShowUpdateForm = !this.isShowUpdateForm
-          this.todos.map(todo => {
+          this.todos = this.todos.map(todo => {
             if (todo.id === this.inputUpdateTodo.id) {
               todo.title = this.inputUpdateTodo.title
             }
+            return todo
           })
+          this.isShowUpdateForm = !this.isShowUpdateForm
         }
       },
     })
