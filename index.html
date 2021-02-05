@@ -87,6 +87,13 @@
               localStorage.removeItem('todos');
             }
           }
+          if (localStorage.getItem('id')) {
+            try {
+              this.todo.id = JSON.parse(localStorage.getItem('id'));
+            } catch (e) {
+              localStorage.removeItem('id');
+            }
+          }
         },
         methods: {
           addTodo() {
@@ -96,14 +103,15 @@
             });
             this.todo.id++;
             this.todo.title = '';
-            this.saveTodo();
+            this.saveLocalStorage();
           },
-          saveTodo() {
+          saveLocalStorage() {
+            localStorage.setItem('id', JSON.stringify(this.todo.id));
             localStorage.setItem('todos', JSON.stringify(this.todos));
           },
           deleteTodo(targetTodoId) {
             this.todos = this.todos.filter((todo) => todo.id !== targetTodoId);
-            this.saveTodo();
+            this.saveLocalStorage();
           },
           showUpdateForm(targetTodo) {
             this.isShowUpdateForm = !this.isShowUpdateForm;
@@ -111,13 +119,14 @@
             this.inputUpdateTodo.id = targetTodo.id;
           },
           updateTodo() {
-            this.isShowUpdateForm = !this.isShowUpdateForm;
-            this.todos.map((todo) => {
+            this.todos = this.todos.map((todo) => {
               if (todo.id === this.inputUpdateTodo.id) {
                 todo.title = this.inputUpdateTodo.title;
               }
+              return todo;
             });
-            this.saveTodo();
+            this.isShowUpdateForm = !this.isShowUpdateForm;
+            this.saveLocalStorage();
           },
         },
       });
