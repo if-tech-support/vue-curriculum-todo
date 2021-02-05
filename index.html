@@ -35,7 +35,7 @@
         <div class="todo-title">
           Title： {{ todo.title }}
         </div>
-        <button type="button" @click="deleteTodo(todo.id)" v-show="!isShowUpdateForm">削除</button>
+        <button type="button" @click="deleteTodo(todo)" v-show="!isShowUpdateForm">削除</button>
         <button type="button" @click="showUpdateForm(todo)" v-show="!isShowUpdateForm">編集</button>
       </div>
     </div>
@@ -48,7 +48,6 @@
       <button type="button" @click="isShowUpdateForm = !isShowUpdateForm">戻る</button>
     </div>
   </main>
-
 
   <!-- 開発用 Vue CDN -->
   <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
@@ -77,8 +76,10 @@
           this.todo.id++
           this.todo.title = ''
         },
-        deleteTodo(targetTodoId) {
-          this.todos = this.todos.filter(todo =>  todo.id !== targetTodoId )
+        deleteTodo(targetTodo) {
+          if (window.confirm(`本当に、ID：${targetTodo.id}  Title：${targetTodo.title} を削除してもよろしいでしょうか ?`)) {
+            this.todos = this.todos.filter(todo => todo.id !== targetTodo.id)
+          }
         },
         showUpdateForm(targetTodo) {
           this.isShowUpdateForm = !this.isShowUpdateForm
