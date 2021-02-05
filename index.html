@@ -17,14 +17,9 @@
       <div class="form-title">
         <h2>Todoを追加する</h2>
       </div>
-      <form @submit.prevent="addTodo">
-        <input v-model="todo.title" placeholder="Todoのタイトルを記入">
-        <button type="submit">追加</button>
-      </form>
-      <div class="error-message" v-if="validation.errorMessage.length">
-        <p> {{ validation.inputTextCount }} / 20 </p>
-        <p>{{ validation.errorMessage }}</p>
-      </div>
+      <input v-model="todo.title" placeholder="Todoのタイトルを記入">
+      <button type="button" @click="addTodo">追加</button>
+      <div> {{ todo.title.length }} / 20 </div>
     </div>
 
     <!-- wrapper : todoの一覧を内包するラッパー -->
@@ -72,20 +67,14 @@
           id: null,
           title: ''
         },
-        validation: {
-          errorMessage: '',
-          inputTextCount: null
-        },
         isShowUpdateForm: false
       },
       methods: {
         addTodo() {
           if (this.todo.title.length === 0) {
-            this.validation.inputTextCount = this.todo.title.length
-            this.validation.errorMessage = '0文字以上入力してください。'
+            return
           } else if (this.todo.title.length >= 21) {
-            this.validation.inputTextCount = this.todo.title.length
-            this.validation.errorMessage = '入力は20文字までです。'
+            return
           } else {
             this.todos.push({
               id: this.todo.id,

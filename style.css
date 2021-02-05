@@ -32,7 +32,3 @@ main {
 .todo-id, .todo-title, .container > button {
   margin-right: 30px;
 }
-
-.error-message {
-  color: red;
-}
