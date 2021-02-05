@@ -25,7 +25,7 @@
     <div class="wrapper">
       <!-- container : todoの詳細を内包するコンテナ -->
       <div
-        v-for="todo in todos"
+        v-for="(todo, index) in todos"
         :key="todo.id"
         class="container"
         >
@@ -35,7 +35,7 @@
         <div class="todo-title">
           Title： {{ todo.title }}
         </div>
-        <button type="button" @click="deleteTodo(todo.id)" v-show="!isShowUpdateForm">削除</button>
+        <button type="button" @click="deleteTodo(index)" v-show="!isShowUpdateForm">削除</button>
         <button type="button" @click="showUpdateForm(todo)" v-show="!isShowUpdateForm">編集</button>
       </div>
     </div>
@@ -77,8 +77,8 @@
           this.todo.id++
           this.todo.title = ''
         },
-        deleteTodo(targetTodoId) {
-          this.todos = this.todos.filter(todo =>  todo.id !== targetTodoId )
+        deleteTodo(targetTodoIndex) {
+          this.todos.splice(targetTodoIndex, 1)
         },
         showUpdateForm(targetTodo) {
           this.isShowUpdateForm = !this.isShowUpdateForm
