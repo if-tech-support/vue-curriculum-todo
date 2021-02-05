@@ -71,18 +71,14 @@
       },
       methods: {
         addTodo() {
-          if (this.todo.title.length === 0) {
-            return
-          } else if (this.todo.title.length >= 21) {
-            return
-          } else {
-            this.todos.push({
-              id: this.todo.id,
-              title: this.todo.title
-            })
-            this.todo.id++
-            this.todo.title = ''
-          }
+          if (this.todo.title.length === 0) return
+          if (this.todo.title.length >= 21) return
+          this.todos.push({
+            id: this.todo.id,
+            title: this.todo.title
+          })
+          this.todo.id++
+          this.todo.title = ''
         },
         deleteTodo(targetTodoId) {
           this.todos = this.todos.filter(todo =>  todo.id !== targetTodoId )
