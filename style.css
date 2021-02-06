@@ -1,6 +1,6 @@
 main {
   margin: 100px auto 0;
-  width: 500px;
+  width: 600px;
   text-align: center;
 }
 
@@ -15,6 +15,13 @@ main {
   border: 1px solid #000;
 }
 
+.todo-filter {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  margin-bottom: 30px;
+}
+
 .wrapper {
   padding: 30px 20px;
   margin-bottom: 30px;
@@ -23,12 +30,14 @@ main {
 
 .container {
   display: flex;
-
   margin-bottom: 20px;
   padding: 30px 20px;
   border: 1px solid #000;
 }
 
-.todo-id, .todo-title, .container > button {
+.todo-id,
+.todo-title,
+.container > button,
+label {
   margin-right: 30px;
 }

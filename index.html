@@ -21,11 +21,23 @@
       <button type="button" @click="addTodo">追加</button>
     </div>
 
+    <ul class="todo-filter">
+      <li v-for="filter in filters" :key="filter.id">
+        <input
+          :id="filter.id"
+          type="radio"
+          :value="filter.value"
+          v-model="picked"
+        />
+        <label :for="filter.id">{{ filter.text }}</label>
+      </li>
+    </ul>
+
     <!-- wrapper : todoの一覧を内包するラッパー -->
     <div class="wrapper">
       <!-- container : todoの詳細を内包するコンテナ -->
       <div
-        v-for="todo in todos"
+        v-for="todo in filterTodos"
         :key="todo.id"
         class="container"
         >
@@ -35,6 +47,10 @@
         <div class="todo-title">
           Title： {{ todo.title }}
         </div>
+        <label>
+          <input type="checkbox" v-model="todo.done" />
+          完了
+        </label>
         <button type="button" @click="deleteTodo(todo.id)" v-show="!isShowUpdateForm">削除</button>
         <button type="button" @click="showUpdateForm(todo)" v-show="!isShowUpdateForm">編集</button>
       </div>
@@ -62,12 +78,32 @@
           id: 0,
           title: ''
         },
+        filters: [
+            { id: 0, value: 'all', text: 'すべて' },
+            { id: 1, value: 'doing', text: '未完了' },
+            { id: 2, value: 'done', text: '完了' },
+          ],
+        picked: 'all',
         inputUpdateTodo: {
           id: null,
           title: ''
         },
         isShowUpdateForm: false
       },
+      computed: {
+          filterTodos() {
+            switch (this.picked) {
+              case 'all':
+                return this.todos;
+              case 'doing':
+                return this.todos.filter((todo) => !todo.done);
+              case 'done':
+                return this.todos.filter((todo) => todo.done);
+              default:
+                return [];
+            }
+          },
+        },
       methods: {
         addTodo() {
           this.todos.push({
