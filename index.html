@@ -22,14 +22,15 @@
     </div>
 
     <ul class="todo-filter">
-      <li v-for="filter in filters" :key="filter.id">
+      <li v-for="status in statusSelections" :key="status">
+      <label>
         <input
-          :id="filter.id"
           type="radio"
-          :value="filter.value"
-          v-model="picked"
+          :value="status"
+          v-model="selectedStatus"
         />
-        <label :for="filter.id">{{ filter.text }}</label>
+        {{ status }}
+      </label>
       </li>
     </ul>
 
@@ -79,12 +80,8 @@
           title: '',
           done: false
         },
-        filters: [
-            { id: 0, value: 'all', text: 'すべて' },
-            { id: 1, value: 'doing', text: '未完了' },
-            { id: 2, value: 'done', text: '完了' },
-          ],
-        picked: 'all',
+        statusSelections: [ 'all' , 'doing' , 'done' ],
+        selectedStatus: 'all',
         inputUpdateTodo: {
           id: null,
           title: '',
@@ -93,13 +90,13 @@
       },
       computed: {
           filterTodos() {
-            switch (this.picked) {
+            switch (this.selectedStatus) {
               case 'all':
                 return this.todos;
               case 'doing':
-                return this.todos.filter((todo) => !todo.done);
+                return this.todos.filter(todo => !todo.done);
               case 'done':
-                return this.todos.filter((todo) => todo.done);
+                return this.todos.filter(todo => todo.done);
               default:
                 return [];
             }
