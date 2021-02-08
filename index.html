@@ -8,7 +8,7 @@
 </head>
 <body>
 
-  <main id="app" >
+  <main id="app">
     <div class="app-title">
       <h1>My Todo List</h1>
     </div>
@@ -18,7 +18,7 @@
         <h2>Todoを追加する</h2>
       </div>
       <input v-model="todo.title" placeholder="Todoのタイトルを記入">
-      <button type="button" @click="addTodo">追加</button>
+      <button type="button" @click="addTodo" :disabled="isShowedUpdateForm">追加</button>
     </div>
 
     <!-- wrapper : todoの一覧を内包するラッパー -->
@@ -35,17 +35,17 @@
         <div class="todo-title">
           Title： {{ todo.title }}
         </div>
-        <button type="button" @click="deleteTodo(todo.id)" v-show="!isShowUpdateForm">削除</button>
-        <button type="button" @click="showUpdateForm(todo)" v-show="!isShowUpdateForm">編集</button>
+        <button type="button" @click="deleteTodo(todo.id)" :disabled="isShowedUpdateForm">削除</button>
+        <button type="button" @click="showUpdateForm(todo)" :disabled="isShowedUpdateForm">編集</button>
       </div>
     </div>
 
     <!-- 編集フォーム -->
-    <div v-show="isShowUpdateForm" class="update-todo-form">
-      ID : {{ inputUpdateTodo.id }}
-      <input v-model="inputUpdateTodo.title" placeholder="Todoのタイトルを記入">
+    <div v-show="isShowedUpdateForm" class="update-todo-form">
+      ID : {{ updateTodoInput.id }}
+      <input v-model="updateTodoInput.title" placeholder="Todoのタイトルを記入">
       <button type="button" @click="updateTodo">保存</button>
-      <button type="button" @click="isShowUpdateForm = !isShowUpdateForm">戻る</button>
+      <button type="button" @click="isShowedUpdateForm = !isShowedUpdateForm">戻る</button>
     </div>
   </main>
 
@@ -62,11 +62,11 @@
           id: 0,
           title: ''
         },
-        inputUpdateTodo: {
+        updateTodoInput: {
           id: null,
           title: ''
         },
-        isShowUpdateForm: false
+        isShowedUpdateForm: false
       },
       methods: {
         addTodo() {
@@ -81,18 +81,18 @@
           this.todos = this.todos.filter(todo =>  todo.id !== targetTodoId )
         },
         showUpdateForm(targetTodo) {
-          this.isShowUpdateForm = !this.isShowUpdateForm
-          this.inputUpdateTodo.title = targetTodo.title
-          this.inputUpdateTodo.id = targetTodo.id
+          this.isShowedUpdateForm = !this.isShowedUpdateForm
+          this.updateTodoInput.title = targetTodo.title
+          this.updateTodoInput.id = targetTodo.id
         },
         updateTodo() {
           this.todos = this.todos.map(todo => {
-            if (todo.id === this.inputUpdateTodo.id) {
-              todo.title = this.inputUpdateTodo.title
+            if (todo.id === this.updateTodoInput.id) {
+              todo.title = this.updateTodoInput.title
             }
             return todo
           })
-          this.isShowUpdateForm = !this.isShowUpdateForm
+          this.isShowedUpdateForm = !this.isShowedUpdateForm
         }
       },
     })
